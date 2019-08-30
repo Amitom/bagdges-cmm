@@ -77,7 +77,7 @@ export default class BadgesBuilder extends Component {
 			inProgressPerson,
 		} = this.state;
 
-		const isPersonValid = inProgressPerson.name !== "";
+		let isPersonValid = inProgressPerson.name !== "";
 		if(inProgressPerson.quality === 0) isPersonValid = isPersonValid && inProgressPerson.number !== "";
 
 		return(
