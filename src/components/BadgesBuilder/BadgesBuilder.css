@@ -1,0 +1,50 @@
+.generator-badges{
+
+}
+
+.generator-render .pass{
+	border: 1px solid rgba(0,0,0,0.1);
+	box-sizing: border-box;
+	margin: 2.1rem 0;
+	padding: 1rem;
+	text-align: center;
+	width: 50%;
+}
+
+.generator-render .pass h1{
+	color: #000;
+	font-size: 21px;
+}
+
+.generator-render .pass .name{
+	color: #000;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+.generator-render .pass .number{
+	color: #000;
+	font-size: 25px;
+}
+
+.generator-render .pass .quality{
+	color: #000;
+	font-size: 16px;
+}
+
+.generator-render .pass .copyright{
+	color: #000;
+	display: block;
+	font-size: 11px;
+	text-align: right;
+}
+
+.generator-render .pass img{
+	width: 30%;
+}
+
+@media print {
+	.generator-form{
+		display: none;
+	}
+}
