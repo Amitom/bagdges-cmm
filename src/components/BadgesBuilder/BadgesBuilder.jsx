@@ -9,11 +9,12 @@ export default class BadgesBuilder extends Component {
 		"Exposant",
 		"Organisateur",
 		"Bénévole",
+		"Autre",
 	];
 
 	static personModel = {
 		name:"",
-		number:"",
+		company:"",
 		quality:0,
 	}
 
@@ -57,9 +58,9 @@ export default class BadgesBuilder extends Component {
 		this.setState({inProgressPerson});
 	}
 
-	onNumberChange = (e) => {
+	onCompanyChange = (e) => {
 		const inProgressPerson = Object.assign({},this.state.inProgressPerson);
-		inProgressPerson.number = e.target.value;
+		inProgressPerson.company = e.target.value;
 		this.setState({inProgressPerson});
 	}
 
@@ -76,9 +77,6 @@ export default class BadgesBuilder extends Component {
 			copyright,
 			inProgressPerson,
 		} = this.state;
-
-		let isPersonValid = inProgressPerson.name !== "";
-		if(inProgressPerson.quality === 0) isPersonValid = isPersonValid && inProgressPerson.number !== "";
 
 		return(
 			<section className="generator-badges">
@@ -100,7 +98,7 @@ export default class BadgesBuilder extends Component {
 						  <thead>
 						    <tr>
 						      <th>Nom</th>
-						      <th>Numéro</th>
+						      <th>Compagnie</th>
 						      <th colSpan="2">Qualité</th>
 						    </tr>
 						  </thead>
@@ -113,7 +111,7 @@ export default class BadgesBuilder extends Component {
 						  	{persons.map((person, idx) => (
 							    <tr key={idx}>
 							      <td>{person.name}</td>
-							      <td>{person.number}</td>
+							      <td>{person.company}</td>
 							      <td>{BadgesBuilder.personQualities[person.quality]}</td>
 							      <td><button onClick={() => this.deletePerson(idx)}>Supprimer</button></td>
 							    </tr>
@@ -122,7 +120,7 @@ export default class BadgesBuilder extends Component {
 						  <tfoot>
 						  	<tr>
 						      <td><input type="text" onChange={this.onNameChange} value={inProgressPerson.name} /></td>
-						      <td><input type="number" min="0" step="1" onChange={this.onNumberChange} value={inProgressPerson.number} /></td>
+						      <td><input type="text" onChange={this.onCompanyChange} value={inProgressPerson.company} /></td>
 						      <td>
 						      	<select onChange={this.onQualityChange} value={inProgressPerson.quality}>
 						      		{BadgesBuilder.personQualities.map((quality,idx) => (
@@ -130,7 +128,7 @@ export default class BadgesBuilder extends Component {
 						      		))}
 						      	</select>
 						      </td>
-						      <td><button disabled={!isPersonValid} onClick={(e) => {isPersonValid && this.addPerson(e)}}>Ajouter</button></td>
+						      <td><button onClick={(e) => {this.addPerson(e)}}>Ajouter</button></td>
 						  	</tr>
 						  </tfoot>
 						</table>
@@ -141,14 +139,24 @@ export default class BadgesBuilder extends Component {
 				</section>
 				<aside className="generator-render clearfix">
 			  	{persons.map((person, idx) => (
-				    <article className="pass float-left" key={"render-" + idx}>
-				    	<h1>{salonLabel}</h1>
-				    	<img src={LogoCMM} alt=""/>
-				      <div className="name">{person.name}</div>
-				      <div className="number">{person.number}</div>
-				      <div className="quality">{BadgesBuilder.personQualities[person.quality]}</div>
-				      <small className="copyright">{copyright}</small>
-				    </article>
+				    <Fragment>
+					    <article className="pass float-left" key={"render-" + idx}>
+					    	<h1>{salonLabel}</h1>
+					    	<img src={LogoCMM} alt=""/>
+					      <div className="name">{person.name}</div>
+					      <div className="number">{person.company}</div>
+					      <div className="quality">{BadgesBuilder.personQualities[person.quality]}</div>
+					      <small className="copyright">{copyright}</small>
+					    </article>
+					    <article className="pass float-left" key={"render-" + idx}>
+					    	<h1>{salonLabel}</h1>
+					    	<img src={LogoCMM} alt=""/>
+					      <div className="name">{person.name}</div>
+					      <div className="number">{person.company}</div>
+					      <div className="quality">{BadgesBuilder.personQualities[person.quality]}</div>
+					      <small className="copyright">{copyright}</small>
+					    </article>
+				    </Fragment>
 			  	))}
 				</aside>
 			</section>
