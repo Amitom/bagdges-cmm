@@ -97,8 +97,8 @@ export default class BadgesBuilder extends Component {
 						<table>
 						  <thead>
 						    <tr>
-						      <th>Nom</th>
 						      <th>Compagnie</th>
+						      <th>Nom</th>
 						      <th colSpan="2">Qualité</th>
 						    </tr>
 						  </thead>
@@ -110,8 +110,8 @@ export default class BadgesBuilder extends Component {
 						  	)}
 						  	{persons.map((person, idx) => (
 							    <tr key={idx}>
-							      <td>{person.name}</td>
 							      <td>{person.company}</td>
+							      <td>{person.name}</td>
 							      <td>{BadgesBuilder.personQualities[person.quality]}</td>
 							      <td><button onClick={() => this.deletePerson(idx)}>Supprimer</button></td>
 							    </tr>
@@ -119,8 +119,8 @@ export default class BadgesBuilder extends Component {
 						  </tbody>
 						  <tfoot>
 						  	<tr>
-						      <td><input type="text" onChange={this.onNameChange} value={inProgressPerson.name} /></td>
 						      <td><input type="text" onChange={this.onCompanyChange} value={inProgressPerson.company} /></td>
+						      <td><input type="text" onChange={this.onNameChange} value={inProgressPerson.name} /></td>
 						      <td>
 						      	<select onChange={this.onQualityChange} value={inProgressPerson.quality}>
 						      		{BadgesBuilder.personQualities.map((quality,idx) => (
@@ -143,16 +143,16 @@ export default class BadgesBuilder extends Component {
 					    <article className="pass float-left" key={"render-" + idx}>
 					    	<h1>{salonLabel}</h1>
 					    	<img src={LogoCMM} alt=""/>
-					      <div className="name">{person.name}</div>
-					      <div className="number">{person.company}</div>
+					      <div className="company">{person.company || " "}</div>
+					      <div className="name">{person.name || "_________________________"}</div>
 					      <div className="quality">{BadgesBuilder.personQualities[person.quality]}</div>
 					      <small className="copyright">{copyright}</small>
 					    </article>
 					    <article className="pass float-left" key={"render-" + idx}>
 					    	<h1>{salonLabel}</h1>
 					    	<img src={LogoCMM} alt=""/>
-					      <div className="name">{person.name}</div>
-					      <div className="number">{person.company}</div>
+					      <div className="company">{person.company || " "}</div>
+					      <div className="name">{person.name || "_________________________"}</div>
 					      <div className="quality">{BadgesBuilder.personQualities[person.quality]}</div>
 					      <small className="copyright">{copyright}</small>
 					    </article>
