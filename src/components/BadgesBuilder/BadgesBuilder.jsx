@@ -20,7 +20,7 @@ export default class BadgesBuilder extends Component {
 
 	state = {
 		salonLabel: "Salon des pierres, minéraux et fossiles",
-		persons: [],
+		persons: JSON.parse(localStorage.getItem('persons'))|| [],
 		inProgressPerson: BadgesBuilder.personModel,
 		copyright: "Propriété du CMM",
 	};
@@ -31,17 +31,19 @@ export default class BadgesBuilder extends Component {
 
 		this.setState({
 			persons,
-		})
+		}, () => localStorage.setItem('persons', JSON.stringify(this.state.persons)))
 	}
 
 	addPerson = () => {
 		let persons = this.state.persons;
 		persons.push(this.state.inProgressPerson);
 
+		console.log(JSON.stringify(this.state.persons))
+
 		this.setState({
 			persons,
 			inProgressPerson: Object.assign({},BadgesBuilder.personModel),
-		})
+		}, () => localStorage.setItem('persons', JSON.stringify(this.state.persons)))
 	}
 
 	onLabelChange = (e) => {
@@ -97,6 +99,7 @@ export default class BadgesBuilder extends Component {
 						<table>
 						  <thead>
 						    <tr>
+						    	<th></th>
 						      <th>Compagnie</th>
 						      <th>Nom</th>
 						      <th colSpan="2">Qualité</th>
@@ -105,11 +108,12 @@ export default class BadgesBuilder extends Component {
 						  <tbody>
 						  	{persons.length === 0 && (
 						  		<tr>
-						  			<td colSpan="4">Aucune donnée, ajoutez une personne.</td>
+						  			<td colSpan="5">Aucune donnée, ajoutez une personne.</td>
 						  		</tr>
 						  	)}
 						  	{persons.map((person, idx) => (
 							    <tr key={idx}>
+							    	<td>{idx + 1}</td>
 							      <td>{person.company}</td>
 							      <td>{person.name}</td>
 							      <td>{BadgesBuilder.personQualities[person.quality]}</td>
@@ -119,6 +123,7 @@ export default class BadgesBuilder extends Component {
 						  </tbody>
 						  <tfoot>
 						  	<tr>
+							    <td>{persons.length + 1}</td>
 						      <td><input type="text" onChange={this.onCompanyChange} value={inProgressPerson.company} /></td>
 						      <td><input type="text" onChange={this.onNameChange} value={inProgressPerson.name} /></td>
 						      <td>
@@ -139,7 +144,7 @@ export default class BadgesBuilder extends Component {
 				</section>
 				<aside className="generator-render clearfix">
 			  	{persons.map((person, idx) => (
-				    <Fragment>
+				    <Fragment key={idx}>
 					    <article className="pass float-left" key={"render-" + idx}>
 					    	<h1>{salonLabel}</h1>
 					    	<img src={LogoCMM} alt=""/>
@@ -148,7 +153,7 @@ export default class BadgesBuilder extends Component {
 					      <div className="quality">{BadgesBuilder.personQualities[person.quality]}</div>
 					      <small className="copyright">{copyright}</small>
 					    </article>
-					    <article className="pass float-left" key={"render-" + idx}>
+					    <article className="pass float-left" key={"renderv-" + idx}>
 					    	<h1>{salonLabel}</h1>
 					    	<img src={LogoCMM} alt=""/>
 					      <div className="company">{person.company || " "}</div>
